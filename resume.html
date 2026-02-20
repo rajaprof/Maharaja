@@ -13,7 +13,24 @@
     <style>
         :root { --bg: #ffffff; --text: #1a202c; --accent: #2563eb; }
         body { font-family: 'Inter', sans-serif; background: #555; color: var(--text); line-height: 1.5; }
-        .page { background: white; max-width: 21cm; margin: 2rem auto; padding: 2cm; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        
+        /* MOBILE-FIRST PAGE STYLING */
+        .page { 
+            background: white; 
+            max-width: 21cm; 
+            margin: 0 auto; 
+            padding: 1.5rem; /* Smaller padding for mobile */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+        }
+        
+        /* DESKTOP PAGE STYLING */
+        @media (min-width: 768px) {
+            .page {
+                margin: 2rem auto;
+                padding: 2cm; /* Standard A4 padding for desktop */
+            }
+        }
+        
         h1, h2 { font-family: 'Space Grotesk', sans-serif; }
         
         /* PRINT OPTIMIZATION */
@@ -27,26 +44,26 @@
 </head>
 <body>
 
-    <div class="fixed bottom-8 right-8 no-print flex gap-3">
-        <a href="index.html" class="bg-gray-800 text-white px-5 py-2 rounded-full font-bold shadow-lg text-sm flex items-center">
+    <div class="fixed bottom-4 right-4 md:bottom-8 md:right-8 no-print flex flex-col md:flex-row gap-2 md:gap-3 z-50">
+        <a href="index.html" class="bg-gray-800 text-white px-4 py-2 md:px-5 md:py-2 rounded-full font-bold shadow-lg text-xs md:text-sm flex items-center justify-center">
             <i class="fas fa-arrow-left mr-2"></i> Portfolio
         </a>
-        <button onclick="window.print()" class="bg-blue-600 text-white px-5 py-2 rounded-full font-bold shadow-lg text-sm flex items-center">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 md:px-5 md:py-2 rounded-full font-bold shadow-lg text-xs md:text-sm flex items-center justify-center">
             <i class="fas fa-file-pdf mr-2"></i> Save PDF
         </button>
     </div>
 
     <div class="page">
         
-        <header class="border-b-2 border-gray-800 pb-4 mb-6 flex justify-between items-end">
+        <header class="border-b-2 border-gray-800 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
-                <h1 class="text-4xl font-bold uppercase tracking-tight text-gray-900">K. Maharaja</h1>
-                <p class="text-lg font-semibold text-blue-700 tracking-wide mt-1">DATA ANALYST | AUTOMATION ENGINEER</p>
+                <h1 class="text-3xl md:text-4xl font-bold uppercase tracking-tight text-gray-900">K. Maharaja</h1>
+                <p class="text-base md:text-lg font-semibold text-blue-700 tracking-wide mt-1">DATA ANALYST | AUTOMATION ENGINEER</p>
             </div>
-            <div class="text-right text-sm text-gray-700 space-y-1">
-                <p><a href="mailto:k.maharaja.bca@gmail.com" class="hover:text-blue-600">k.maharaja.bca@gmail.com</a> <i class="fas fa-envelope ml-2 text-gray-400"></i></p>
-                <p><a href="https://linkedin.com/in/k-maharaja-bca" class="hover:text-blue-600">linkedin.com/in/k-maharaja-bca</a> <i class="fab fa-linkedin ml-2 text-gray-400"></i></p>
-                <p><a href="#" class="hover:text-blue-600">https://rajaprof.github.io/Maharaja/</a> <i class="fas fa-globe ml-2 text-gray-400"></i></p>
+            <div class="text-left md:text-right text-sm text-gray-700 space-y-1">
+                <p class="flex items-center md:justify-end gap-2"><i class="fas fa-envelope text-gray-400 md:order-2"></i> <a href="mailto:k.maharaja.bca@gmail.com" class="hover:text-blue-600 md:order-1">k.maharaja.bca@gmail.com</a></p>
+                <p class="flex items-center md:justify-end gap-2"><i class="fab fa-linkedin text-gray-400 md:order-2"></i> <a href="https://linkedin.com/in/k-maharaja-bca" class="hover:text-blue-600 md:order-1">linkedin.com/in/k-maharaja-bca</a></p>
+                <p class="flex items-center md:justify-end gap-2"><i class="fas fa-globe text-gray-400 md:order-2"></i> <a href="https://rajaprof.github.io/Maharaja/" class="hover:text-blue-600 md:order-1">rajaprof.github.io/Maharaja</a></p>
             </div>
         </header>
 
@@ -59,7 +76,7 @@
 
         <section class="mb-6">
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Technical Skills</h2>
-            <div class="grid grid-cols-4 gap-4 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                     <span class="block font-bold text-gray-900">Languages & DB</span>
                     <span class="text-gray-600">SQL, JavaScript (ES6+), Python</span>
@@ -83,30 +100,27 @@
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Work Experience</h2>
 
             <div class="mb-5">
-                <div class="flex justify-between items-baseline">
-                    <h3 class="text-lg font-bold text-gray-900">Data Processing Analyst | Automation Specialist</h3>
-                    <span class="text-sm font-mono text-gray-500">Jun 2024 - Present</span>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
+                    <h3 class="text-lg font-bold text-gray-900">Data Processing Analyst</h3>
+                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">Jun 2024 - Present</span>
                 </div>
                 <div class="text-sm text-blue-700 font-semibold mb-2">NielsenIQ</div>
                 
                 <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700">
                     <li>Designed <strong>data normalization logic</strong> to standardize inconsistent schema headers across <strong>35,000+ records</strong> using Regex parsing and rule-based transformation.</li>
-                    
                     <li>Engineered a <strong>data validation pipeline</strong> ('DI Tool') enforcing 28 structural and logical constraints, <strong>reducing validation errors to near zero</strong> in production datasets.</li>
-                    
-                    <li>Deployed automation solutions adopted by the entire data processing team,<strong>delivering ~₹1.5L in estimated annual operational savings</strong> while stabilizing SLA performance.</li>
-                    
-                    <li>Optimized complex data extraction by using <strong>Advanced SQL (CTEs, Window Functions, and JOIN restructuring)</strong>, Reduced query runtime by ~40% across high-volume datasets (50k+ rows).</li>
+                    <li>Deployed automation solutions adopted by the entire data processing team, saving <strong>~500+ annualized team hours (~₹1.5L operational value)</strong> and improving strict SLA adherence.</li>
+                    <li>Optimized complex data extraction by leveraging <strong>Advanced SQL (CTEs, Window Functions, and JOIN restructuring)</strong>, significantly reducing query runtime for high-volume datasets.</li>
                 </ul>
-                <div class="mt-2 text-xs text-gray-500 bg-gray-50 p-1.5 rounded inline-block">
+                <div class="mt-2 text-xs text-gray-500 bg-gray-50 p-2 rounded inline-block w-full md:w-auto">
                     <strong>Environment:</strong> SQL, JavaScript, Chrome API, Regex, ETL workflows.
                 </div>
             </div>
 
             <div class="mb-5">
-                <div class="flex justify-between items-baseline">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
                     <h3 class="text-base font-bold text-gray-900">Cafe Operations Manager</h3>
-                    <span class="text-sm font-mono text-gray-500">6 Months</span>
+                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">6 Months</span>
                 </div>
                 <div class="text-sm text-gray-600 italic mb-1">Operational Leadership</div>
                 <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700">
@@ -115,9 +129,9 @@
             </div>
 
             <div>
-                <div class="flex justify-between items-baseline">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
                     <h3 class="text-base font-bold text-gray-900">Freelance UI/UX & Graphic Designer</h3>
-                    <span class="text-sm font-mono text-gray-500">College Years</span>
+                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">College Years</span>
                 </div>
                 <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700 mt-1">
                     <li>Delivered complete UI/UX solutions and branding assets, focusing on clean aesthetics and user flow.</li>
@@ -127,36 +141,36 @@
 
         <section class="mb-6">
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Key Engineering Projects</h2>
-            <div class="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
                 <div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-start">
                         <strong class="text-gray-900">Header Cleaner Extension</strong>
-                        <span class="text-blue-700 font-bold text-xs">Schema Standardization</span>
+                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Schema Standardization</span>
                     </div>
-                    <p class="text-gray-600 text-xs">Automated rule-based cleaning for 35k+ records.</p>
+                    <p class="text-gray-600 text-xs mt-1">Automated rule-based cleaning for 35k+ records.</p>
                 </div>
                 <div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-start">
                         <strong class="text-gray-900">DI Validator Tool</strong>
-                        <span class="text-blue-700 font-bold text-xs">Logic Validation</span>
+                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Logic Validation</span>
                     </div>
-                    <p class="text-gray-600 text-xs">28-point constraint check preventing dirty data ingestion.</p>
+                    <p class="text-gray-600 text-xs mt-1">28-point constraint check preventing dirty data ingestion.</p>
                 </div>
                 <div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-start">
                         <strong class="text-gray-900">XL Advance Search</strong>
-                        <span class="text-blue-700 font-bold text-xs">Performance Optimization</span>
+                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Performance Fix</span>
                     </div>
-                    <p class="text-gray-600 text-xs">Offloaded VLOOKUP logic to browser to prevent crashes.</p>
+                    <p class="text-gray-600 text-xs mt-1">Offloaded VLOOKUP logic to browser to prevent crashes.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-2 pb-1">Education</h2>
-            <div class="flex justify-between items-baseline text-sm">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline text-sm">
                 <span class="font-bold text-gray-900">Bachelor of Computer Applications (BCA)</span>
-                <span class="font-mono text-gray-500">2019-2021</span>
+                <span class="font-mono text-gray-500 mt-1 md:mt-0">2019-2021</span>
             </div>
             <div class="text-gray-600 text-sm">Manonmaniam Sundaranar University</div>
         </section>
