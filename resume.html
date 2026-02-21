@@ -19,7 +19,7 @@
             background: white; 
             max-width: 21cm; 
             margin: 0 auto; 
-            padding: 1.5rem; /* Smaller padding for mobile */
+            padding: 1.5rem; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
         }
         
@@ -27,18 +27,80 @@
         @media (min-width: 768px) {
             .page {
                 margin: 2rem auto;
-                padding: 2cm; /* Standard A4 padding for desktop */
+                padding: 2cm;
             }
         }
         
         h1, h2 { font-family: 'Space Grotesk', sans-serif; }
         
-        /* PRINT OPTIMIZATION */
+        /* IRONCLAD A4 PRINT OPTIMIZATION */
         @media print {
-            body { background: white; margin: 0; }
-            .page { box-shadow: none; margin: 0; padding: 1cm; max-width: 100%; width: 100%; }
+            @page { 
+                size: A4; 
+                margin: 12mm; /* Tight margins to force 1 page */
+            }
+            body { 
+                background: white; 
+                margin: 0; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+            .page { 
+                box-shadow: none; 
+                margin: 0; 
+                padding: 0; 
+                max-width: 100%; 
+                width: 100%; 
+            }
             .no-print { display: none !important; }
             a { text-decoration: none; color: black; }
+            
+            /* --- THE FIX: FORCING LAYOUTS ON PRINT --- */
+            /* Forces Header and Rows to stay side-by-side */
+            .print-row {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+            }
+            .print-items-end { align-items: flex-end !important; }
+            .print-items-baseline { align-items: baseline !important; }
+            .print-text-right { text-align: right !important; }
+            
+            /* Forces Grids to stay in exact columns */
+            .print-grid-4 {
+                display: grid !important;
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                gap: 12px !important;
+            }
+            .print-grid-2 {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 12px !important;
+            }
+
+            /* Aggressive Spacing Reduction for Print */
+            .mb-6 { margin-bottom: 12px !important; }
+            .mb-5 { margin-bottom: 8px !important; }
+            .mb-3 { margin-bottom: 4px !important; }
+            .mb-2 { margin-bottom: 2px !important; }
+            .pb-4 { padding-bottom: 8px !important; }
+            .pb-1 { padding-bottom: 2px !important; }
+            .mt-1 { margin-top: 2px !important; }
+            
+            ul.space-y-1 > li { margin-top: 3px !important; margin-bottom: 3px !important; }
+            
+            /* Typography Scaling for Print */
+            body { font-size: 11px !important; line-height: 1.35 !important; }
+            h1 { font-size: 24px !important; line-height: 1 !important; }
+            h2 { font-size: 12px !important; }
+            h3 { font-size: 13px !important; }
+            .text-sm { font-size: 11px !important; line-height: 1.4 !important; }
+            .text-xs { font-size: 10px !important; }
+            .text-\[10px\] { font-size: 9px !important; }
+            .text-base { font-size: 12px !important; }
+
+            /* Prevent orphans/widows */
+            section, li, div { page-break-inside: avoid; break-inside: avoid; }
         }
     </style>
 </head>
@@ -55,12 +117,12 @@
 
     <div class="page">
         
-        <header class="border-b-2 border-gray-800 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <header class="border-b-2 border-gray-800 pb-4 mb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 print-row print-items-end">
             <div>
                 <h1 class="text-3xl md:text-4xl font-bold uppercase tracking-tight text-gray-900">K. Maharaja</h1>
                 <p class="text-base md:text-lg font-semibold text-blue-700 tracking-wide mt-1">DATA ANALYST | AUTOMATION ENGINEER</p>
             </div>
-            <div class="text-left md:text-right text-sm text-gray-700 space-y-1">
+            <div class="text-left md:text-right text-sm text-gray-700 space-y-1 print-text-right">
                 <p class="flex items-center md:justify-end gap-2"><i class="fas fa-envelope text-gray-400 md:order-2"></i> <a href="mailto:k.maharaja.bca@gmail.com" class="hover:text-blue-600 md:order-1">k.maharaja.bca@gmail.com</a></p>
                 <p class="flex items-center md:justify-end gap-2"><i class="fab fa-linkedin text-gray-400 md:order-2"></i> <a href="https://linkedin.com/in/k-maharaja-bca" class="hover:text-blue-600 md:order-1">linkedin.com/in/k-maharaja-bca</a></p>
                 <p class="flex items-center md:justify-end gap-2"><i class="fas fa-globe text-gray-400 md:order-2"></i> <a href="https://rajaprof.github.io/Maharaja/" class="hover:text-blue-600 md:order-1">rajaprof.github.io/Maharaja</a></p>
@@ -70,28 +132,28 @@
         <section class="mb-6">
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Professional Summary</h2>
             <p class="text-gray-700 text-justify text-sm">
-                Technical Data Analyst specializing in <b>schema validation</b> and <b>automated data pipelines</b>. Experienced in building internal tools that standardize messy datasets, reducing manual processing time by <b>80%</b>. Combines strong <b>SQL logic</b> with <b>JavaScript automation</b> to handle high-volume data transformation for production workflows.
+                Data Analyst specializing in the architecture of operational efficiency. Proven expertise in engineering internal automation tools to manage high-volume, time-sensitive retail trade datasets (35k+ records/month). I bridge the gap between fragmented business data and automated precision by developing bespoke Chrome Extensions and deep-level VBA macros that eliminate manual bottlenecks, strictly enforce 100% production-grade data integrity, and routinely reclaim 3+ hours of manual labor per day for research teams.
             </p>
         </section>
 
         <section class="mb-6">
-            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Technical Skills</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Automation Stack & Technical Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm print-grid-4">
                 <div>
-                    <span class="block font-bold text-gray-900">Languages & DB</span>
-                    <span class="text-gray-600">SQL, JavaScript (ES6+), Python</span>
+                    <span class="block font-bold text-gray-900">Languages & APIs</span>
+                    <span class="text-gray-600">JavaScript (ES6+), DOM, Chrome API</span>
                 </div>
                 <div>
-                    <span class="block font-bold text-gray-900">Data Engineering</span>
-                    <span class="text-gray-600">ETL Logic, Schema Validation, Regex</span>
+                    <span class="block font-bold text-gray-900">Validation & Logic</span>
+                    <span class="text-gray-600">Regex Engines, Excel Object Model</span>
                 </div>
                 <div>
-                    <span class="block font-bold text-gray-900">Automation</span>
-                    <span class="text-gray-600">Chrome Extensions, DOM, VBA</span>
+                    <span class="block font-bold text-gray-900">Systems</span>
+                    <span class="text-gray-600">Workflow Optimization, Advanced VBA</span>
                 </div>
                 <div>
-                    <span class="block font-bold text-gray-900">Tools</span>
-                    <span class="text-gray-600">Excel (Advanced), Figma, Git</span>
+                    <span class="block font-bold text-gray-900">Competencies</span>
+                    <span class="text-gray-600">High-Volume Processing, Data Quality</span>
                 </div>
             </div>
         </section>
@@ -100,77 +162,72 @@
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Work Experience</h2>
 
             <div class="mb-5">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
-                    <h3 class="text-lg font-bold text-gray-900">Data Processing Analyst</h3>
-                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">Jun 2024 - Present</span>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline print-row print-items-baseline">
+                    <h3 class="text-lg font-bold text-gray-900">Data Opearatins Analyst</h3>
+                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">2024 - Present</span>
                 </div>
-                <div class="text-sm text-blue-700 font-semibold mb-2">NielsenIQ</div>
+                <div class="text-sm text-blue-700 font-semibold mb-2">NielsenIQ — Global Consumer Intelligence</div>
                 
                 <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700">
-                    <li>Designed <strong>data normalization logic</strong> to standardize inconsistent schema headers across <strong>35,000+ records</strong> using Regex parsing and rule-based transformation.</li>
-                    <li>Engineered a <strong>data validation pipeline</strong> ('DI Tool') enforcing 28 structural and logical constraints, <strong>reducing validation errors to near zero</strong> in production datasets.</li>
-                    <li>Deployed automation solutions adopted by the entire data processing team, saving <strong>~500+ annualized team hours (~₹1.5L operational value)</strong> and improving strict SLA adherence.</li>
-                    <li>Optimized complex data extraction by leveraging <strong>Advanced SQL (CTEs, Window Functions, and JOIN restructuring)</strong>, significantly reducing query runtime for high-volume datasets.</li>
-                </ul>
-                <div class="mt-2 text-xs text-gray-500 bg-gray-50 p-2 rounded inline-block w-full md:w-auto">
-                    <strong>Environment:</strong> SQL, JavaScript, Chrome API, Regex, ETL workflows.
-                </div>
-            </div>
-
-            <div class="mb-5">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
-                    <h3 class="text-base font-bold text-gray-900">Cafe Operations Manager</h3>
-                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">6 Months</span>
-                </div>
-                <div class="text-sm text-gray-600 italic mb-1">Operational Leadership</div>
-                <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700">
-                    <li>Managed daily operations and inventory for a high-volume cafe, optimizing workflow to reduce peak-hour wait times.</li>
+                    <li>Manage and process high-volume retail and on-premise trade datasets, handling <strong>35,000+ records monthly</strong> under strict, time-sensitive operational deadlines.</li>
+                    <li>Identified critical bottlenecks in legacy manual data entry workflows and independently engineered custom JavaScript-based automation solutions.</li>
+                    <li>Designed and deployed intelligent Quality Control (QC) validators utilizing RegEx algorithms, <strong>elevating data accuracy to 100%</strong> and establishing a reliable "single source of truth."</li>
+                    <li>Streamlined cross-team operations for the TDO team by replacing multi-step tasks with instant, one-click execution engines, successfully reclaiming over <strong>3 hours of manual processing time daily</strong>.</li>
                 </ul>
             </div>
 
             <div>
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline">
-                    <h3 class="text-base font-bold text-gray-900">Freelance UI/UX & Graphic Designer</h3>
-                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">College Years</span>
+                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline print-row print-items-baseline">
+                    <h3 class="text-base font-bold text-gray-900">Operations Lead & Freelancer</h3>
+                    <span class="text-sm font-mono text-gray-500 mt-1 md:mt-0">2022 - 2024</span>
                 </div>
-                <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700 mt-1">
-                    <li>Delivered complete UI/UX solutions and branding assets, focusing on clean aesthetics and user flow.</li>
+                <div class="text-sm text-gray-600 italic mb-1">Independent / Retail Operations</div>
+                <ul class="list-disc list-outside ml-4 space-y-1 text-sm text-gray-700">
+                    <li>Mastered operational speed, resource management, and high-pressure problem solving while managing daily workflows in a bustling retail environment.</li>
+                    <li>Developed strong user-first design logic through freelance UI/UX projects, directly translating these principles into highly accessible, premium internal tools.</li>
                 </ul>
             </div>
         </section>
 
         <section class="mb-6">
-            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Key Engineering Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+            <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-3 pb-1">Proprietary Automation Systems</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm print-grid-2">
                 <div>
                     <div class="flex justify-between items-start">
-                        <strong class="text-gray-900">Header Cleaner Extension</strong>
-                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Schema Standardization</span>
+                        <strong class="text-gray-900">Header Cleaner Pro</strong>
+                        <span class="text-blue-700 font-bold text-[10px] bg-blue-50 px-2 py-0.5 rounded ml-2 whitespace-nowrap">Schema Standardization</span>
                     </div>
-                    <p class="text-gray-600 text-xs mt-1">Automated rule-based cleaning for 35k+ records.</p>
+                    <p class="text-gray-600 text-xs mt-1">Automated rule-based mapping engine utilizing Chrome APIs and Vanilla JS. Eliminated a 1-hour manual reformatting bottleneck per day for 35k+ complex retail datasets.</p>
                 </div>
                 <div>
                     <div class="flex justify-between items-start">
                         <strong class="text-gray-900">DI Validator Tool</strong>
-                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Logic Validation</span>
+                        <span class="text-blue-700 font-bold text-[10px] bg-blue-50 px-2 py-0.5 rounded ml-2 whitespace-nowrap">Logic Validation</span>
                     </div>
-                    <p class="text-gray-600 text-xs mt-1">28-point constraint check preventing dirty data ingestion.</p>
+                    <p class="text-gray-600 text-xs mt-1">Built a production-grade QC validator using strict Data Quality Rules and RegEx. Cross-references research against on-premise databases to enforce 100% data integrity.</p>
                 </div>
                 <div>
                     <div class="flex justify-between items-start">
-                        <strong class="text-gray-900">XL Advance Search</strong>
-                        <span class="text-blue-700 font-bold text-xs bg-blue-50 px-2 py-0.5 rounded">Performance Fix</span>
+                        <strong class="text-gray-900">Manuals Pro</strong>
+                        <span class="text-blue-700 font-bold text-[10px] bg-blue-50 px-2 py-0.5 rounded ml-2 whitespace-nowrap">Process Automation</span>
                     </div>
-                    <p class="text-gray-600 text-xs mt-1">Offloaded VLOOKUP logic to browser to prevent crashes.</p>
+                    <p class="text-gray-600 text-xs mt-1">Developed a custom JS/DOM workflow extension for the TDO team. Aggregates multi-step, repetitive manual data entries into a single execution, saving 60 minutes daily.</p>
+                </div>
+                <div>
+                    <div class="flex justify-between items-start">
+                        <strong class="text-gray-900">Excel Automator</strong>
+                        <span class="text-blue-700 font-bold text-[10px] bg-blue-50 px-2 py-0.5 rounded ml-2 whitespace-nowrap">Performance Fix</span>
+                    </div>
+                    <p class="text-gray-600 text-xs mt-1">Authored deep-level Advanced VBA and Excel Object Model scripting to bypass legacy software limitations, accelerating trade data entry operations by 30 minutes daily.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <h2 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-200 mb-2 pb-1">Education</h2>
-            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline text-sm">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline text-sm print-row print-items-baseline">
                 <span class="font-bold text-gray-900">Bachelor of Computer Applications (BCA)</span>
-                <span class="font-mono text-gray-500 mt-1 md:mt-0">2019-2021</span>
+                <span class="font-mono text-gray-500 mt-1 md:mt-0 uppercase text-xs">Graduated 2021</span>
             </div>
             <div class="text-gray-600 text-sm">Manonmaniam Sundaranar University</div>
         </section>

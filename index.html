@@ -1,38 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="preload" as="image" href="images/portrait.jpg" />
-
-    <title>Efficiency Architect | Data Analyst & Automation Engineer | Portfolio</title>
-    <meta name="description"
-        content="Portfolio of a Data Analyst & Automation Engineer specializing in SQL, Data Engineering, and building custom Chrome Extensions that turn manual data entry into automated workflows." />
-    <meta property="og:title" content="Efficiency Architect | Portfolio" />
-    <meta property="og:image" content="images/portrait.jpg" />
-    <meta property="og:type" content="website" />
-
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><polygon points=%2250,5 95,25 95,75 50,95 5,75 5,25%22 fill=%22none%22 stroke=%22%2366FCF1%22 stroke-width=%225%22/><circle cx=%2250%22 cy=%2250%22 r=%2215%22 fill=%22%2366FCF1%22/></svg>" />
-
+    <title>Efficiency Architect | Data Analyst | DATA AUTOMATION ENGINEER</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Reenie+Beanie&display=swap" rel="stylesheet" />
         
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
     <style>
+        /* COLOR SCHEMA */
         :root {
             --bg-dark: #0b0c10;
             --text-main: #c5c6c7;
-            --neon-blue: #66fcf1;
+            --neon: #66fcf1;
             --neon-dim: #45a29e;
         }
 
@@ -46,182 +34,168 @@
 
         .sketch-font { font-family: "Reenie Beanie", cursive; }
 
-        /* --- MANDALA BACKGROUND --- */
-        .mandala-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;
+        /* PRELOADER */
+        #preloader { position: fixed; inset: 0; background: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .loader-bar { width: 200px; height: 2px; background: #1f2833; margin-top: 20px; position: relative; overflow: hidden; }
+        .loader-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--neon); transition: width 0.5s ease; }
+
+        /* GIANT WATERMARK TEXT */
+        .bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(8rem, 20vw, 25rem);
+            font-weight: 900;
+            color: rgba(102, 252, 241, 0.02);
+            -webkit-text-stroke: 2px rgba(102, 252, 241, 0.15);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: -0.05em;
         }
 
-        .mandala-1 {
-            position: absolute; top: -150px; right: -150px; width: 700px; height: 700px; border: 1px dashed rgba(102, 252, 241, 0.15); border-radius: 50%; animation: rotateSlow 100s linear infinite;
-        }
-
-        .mandala-2 {
-            position: absolute; bottom: -50px; left: -50px; width: 400px; height: 400px; border: 2px double rgba(69, 162, 158, 0.1); border-radius: 50%; animation: rotateReverse 60s linear infinite;
-        }
-
-        @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes rotateReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-        /* --- LAYOUT (UPDATED FOR 7 SLIDES) --- */
+        /* HORIZONTAL LAYOUT */
         .horizontal-container {
             display: flex;
-            width: 700%; /* Changed from 600% to 700% for the new slide */
+            width: 500%; /* 5 slides */
             height: 100vh;
             flex-wrap: nowrap;
             position: relative;
         }
 
         .slide {
-            width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; position: relative; box-sizing: border-box; border-right: 1px solid rgba(255, 255, 255, 0.02); z-index: 2;
+            width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem 5vw; position: relative; box-sizing: border-box; border-right: 1px dashed rgba(102, 252, 241, 0.1); z-index: 2; overflow: hidden;
         }
 
-        /* --- MICRO-POLISHED WATERMARK --- */
-        .hero-watermark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-        .hero-watermark img { width: 80vh; opacity: 0.05; mix-blend-mode: screen; filter: grayscale(1); }
-
-        /* --- ART GRID --- */
-        .art-grid {
-            display: grid; width: 100%; height: 80vh; max-width: 1400px; gap: 1rem;
-            grid-template-columns: 1fr 1.5fr 1.5fr 1fr; grid-template-rows: 2fr 1fr;
-            grid-template-areas: "portrait ui ui anime" "portrait logo1 logo2 anime";
+        /* UI CARDS & DOCK */
+        .glass-card { 
+            background: rgba(31, 40, 51, 0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(102, 252, 241, 0.1); 
+            border-radius: 16px; 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .area-portrait { grid-area: portrait; }
-        .area-ui { grid-area: ui; }
-        .area-anime { grid-area: anime; }
-        .area-logo1 { grid-area: logo1; }
-        .area-logo2 { grid-area: logo2; }
+        .glass-card:hover { border-color: var(--neon); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(102, 252, 241, 0.1); }
 
-        .art-item { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #111; transition: all 0.3s ease; }
-        .art-item:hover { transform: scale(1.02); border-color: var(--neon-blue); z-index: 10; }
-        .art-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .img-top { object-position: top center; }
-        .img-contain { object-fit: contain !important; padding: 20px; }
-        .art-item:hover img { transform: scale(1.05); }
+        .mac-dock { 
+            background: rgba(11, 12, 16, 0.85); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(102, 252, 241, 0.2); 
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.9);
+        }
 
-        /* UI Components */
-        .text-neon { color: var(--neon-blue); text-shadow: 0 0 10px rgba(102, 252, 241, 0.3); }
-        .glass-card { background: rgba(31, 40, 51, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(102, 252, 241, 0.1); border-radius: 16px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
-        .tech-badge { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(255, 255, 255, 0.1); padding: 4px 8px; border-radius: 4px; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-primary { background: var(--neon-blue); color: #000; padding: 12px 32px; border-radius: 9999px; font-weight: bold; transition: all 0.3s ease; }
+        /* STACK BUBBLES */
+        .tech-badge { 
+            font-size: 0.65rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            background: rgba(102, 252, 241, 0.08); 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            color: var(--neon); 
+            border: 1px solid rgba(102, 252, 241, 0.3); 
+            display: inline-block;
+        }
+        
+        /* PULSING METRIC BUBBLE */
+        .pulse-bubble {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: var(--neon);
+            color: #000;
+            font-weight: bold;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            padding: 6px 14px;
+            border-radius: 999px;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.6);
+            animation: pulse-glow 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(102, 252, 241, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 252, 241, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 252, 241, 0); }
+        }
+
+        .btn-primary { background: var(--neon); color: #000; padding: 12px 32px; border-radius: 9999px; font-weight: bold; transition: all 0.3s ease; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
         .btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(102, 252, 241, 0.5); }
 
-        /* Preloader */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        .loader-bar { width: 200px; height: 2px; background: #1f2833; margin-top: 20px; position: relative; overflow: hidden; }
-        .loader-progress { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--neon-blue); transition: width 0.5s ease; }
-
-        /* Animation Classes */
+        /* ANIMATIONS */
         .reveal-text { opacity: 0; transform: translateY(30px); }
         .reveal-img { opacity: 0; transform: scale(0.95); }
 
-        /* Mobile */
+        /* MOBILE FIX */
         @media (max-width: 768px) {
             .horizontal-container { width: 100%; flex-direction: column; height: auto; }
-            .slide { width: 100%; height: auto; min-height: 100vh; border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-right: none; }
-            .art-grid { display: flex; flex-direction: column; height: auto; grid-template-areas: none; }
-            .art-item { height: 350px; width: 100%; }
+            .slide { width: 100%; height: auto; min-height: 100vh; border-bottom: 1px dashed rgba(102, 252, 241, 0.1); border-right: none; padding-bottom: 6rem; }
+            .pulse-bubble { top: -10px; right: 10px; } 
         }
     </style>
 </head>
 
 <body>
-    <div class="mandala-container">
-        <div class="mandala-1"></div>
-        <div class="mandala-2"></div>
-    </div>
-
     <div id="preloader">
-        <div class="text-4xl font-bold text-white tracking-widest">LOADING STORY...</div>
+        <div class="text-2xl font-bold text-white tracking-widest uppercase">Initializing System...</div>
         <div class="loader-bar"><div class="loader-progress" id="progress"></div></div>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-40 px-6 py-4 flex justify-between items-center mix-blend-difference opacity-0" id="navbar">
-        <div class="text-xl font-bold tracking-tighter text-white border-2 border-white px-2 py-1 cursor-pointer" onclick="scrollToSlide(0)">
-            EA.
-        </div>
-        <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest text-white">
-            <button onclick="scrollToSlide(0)" class="hover:text-[#66FCF1] transition">Identity</button>
-            <button onclick="scrollToSlide(2)" class="hover:text-[#66FCF1] transition">Flagship</button>
-            <button onclick="scrollToSlide(3)" class="hover:text-[#66FCF1] transition">Suite</button>
-            <button onclick="scrollToSlide(4)" class="hover:text-[#66FCF1] transition">Impact</button>
-            <button onclick="scrollToSlide(5)" class="hover:text-[#66FCF1] transition">Gallery</button>
-            <button onclick="scrollToSlide(6)" class="hover:text-[#66FCF1] transition">Contact</button>
-        </div>
-    </nav>
-
     <div class="wrapper overflow-hidden">
         <div class="horizontal-container" id="mainContainer">
-            <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"
-                viewBox="0 0 7000 1000" preserveAspectRatio="none">
-                <path id="theLine" d="M 0 500 C 500 600, 1000 400, 1500 500 C 2000 600, 2500 400, 3000 500 C 4000 600, 5000 400, 6000 500 L 7000 500"
-                    stroke="#66FCF1" stroke-width="3" fill="none" stroke-opacity="0.3" stroke-dasharray="7000"
-                    stroke-dashoffset="7000" />
-            </svg>
-
+            
             <section class="slide" id="slide-1">
-                <div class="hero-watermark">
-                    <img src="images/eagle.jpeg" alt="Eagle" style="filter: invert(1)" />
-                </div>
-                <div class="text-center z-10">
-                    <h2 class="text-neon tracking-[0.3em] text-sm mb-4 reveal-text">
-                        EFFICIENCY ARCHITECT
+                <div class="bg-text">AUTOMATE</div>
+                <div class="text-center z-10 max-w-4xl">
+                    <h2 class="text-[#66FCF1] tracking-[0.3em] text-sm mb-6 reveal-text border border-[#66FCF1]/30 inline-block px-6 py-2 rounded-full">
+                        Data Analyst | DATA AUTOMATION ENGINEER
                     </h2>
-                    <h1 class="text-6xl md:text-9xl font-bold text-white mb-4 leading-none reveal-text">
-                        I eliminate <br />
-                        <span class="text-gray-700">Excel Chaos.</span>
+                    <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-none reveal-text">
+                        Architect of <br />
+                        <span class="text-gray-600">Efficiency.</span>
                     </h1>
-                    <p class="text-sm md:text-md text-[#66FCF1] uppercase tracking-widest font-bold mb-6 reveal-text">
-                        Data Analyst at NielsenIQ building internal automation systems.
-                    </p>
                     <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mt-6 reveal-text">
-                        I turn 1-hour manual nightmares into <br />
-                        <span class="text-white border-b border-[#66FCF1]">2-minute automated wins.</span>
+                        I design automation systems that <br />
+                        <span class="text-white border-b border-[#66FCF1]">eliminate repetitive operations and enforce scalable data integrity.</span>
                     </p>
-                    <div class="mt-16 text-xs uppercase tracking-widest text-gray-600 animate-bounce reveal-text cursor-pointer"
-                        onclick="scrollToSlide(1)">
-                        Explore the system &rarr;
-                    </div>
                 </div>
             </section>
 
-            <section class="slide bg-[#0d0e12]" id="slide-2">
+            <section class="slide" id="slide-2">
+                <div class="bg-text">ORIGIN</div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl w-full items-center z-10">
                     <div class="order-2 md:order-1">
                         <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 reveal-text">
-                            Before the code, <br />
-                            <span class="sketch-font text-[#66FCF1] text-5xl md:text-7xl">the hustle.</span>
+                            The <br />
+                            <span class="sketch-font text-[#66FCF1] text-6xl md:text-8xl">Philosophy.</span>
                         </h2>
                         <p class="text-lg text-gray-300 leading-relaxed reveal-text">
-                            I didn’t start as an engineer. I started managing a bustling
-                            cafe and freelancing in design.
+                            With a deep background in <strong class="text-white">Retail & On-Premise Business</strong>, I understand how fragmented trade data can become. My focus is on researching trends and ensuring databases remain a "single source of truth."
                         </p>
-                        <div class="mt-8 space-y-4">
-                            <div class="flex items-center group reveal-text">
-                                <div class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center mr-4 group-hover:bg-[#66FCF1] group-hover:text-black transition text-gray-400">
-                                    <i data-lucide="coffee" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-bold">Cafe Management</h4>
-                                    <p class="text-sm text-gray-500">Operational speed.</p>
-                                </div>
+                        <p class="text-lg text-gray-400 mt-4 leading-relaxed reveal-text mb-8">
+                            I build rule-driven automation systems for high-volume retail and on-premise trade datasets under regulatory constraints.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 w-full max-w-sm reveal-text">
+                            <div class="glass-card p-4 text-center">
+                                <h4 class="text-white font-mono text-2xl font-bold mb-1"><span class="counter" data-target="3">0</span>+ Hrs</h4>
+                                <p class="text-[10px] text-[#66FCF1] uppercase tracking-widest">Saved Daily</p>
                             </div>
-                            <div class="flex items-center group reveal-text">
-                                <div class="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center mr-4 group-hover:bg-[#66FCF1] group-hover:text-black transition text-gray-400">
-                                    <i data-lucide="palette" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-bold">Freelance UI/UX</h4>
-                                    <p class="text-sm text-gray-500">User-first design.</p>
-                                </div>
+                            <div class="glass-card p-4 text-center">
+                                <h4 class="text-white font-mono text-2xl font-bold mb-1">0%</h4>
+                                <p class="text-[10px] text-[#66FCF1] uppercase tracking-widest">Errors</p>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="order-1 md:order-2 flex justify-center reveal-img">
-                        <div class="glass-card p-4 transform rotate-2 hover:rotate-0 transition duration-500 w-80">
-                            <img src="images/portrait.jpg" alt="Me" loading="lazy"
-                                class="w-full h-auto rounded-lg grayscale hover:grayscale-0 transition duration-500 img-top"
-                                style="max-height: 450px" />
-                            <p class="sketch-font text-2xl text-gray-300 mt-4 text-center">
+                        <div class="glass-card p-4 transform rotate-3 hover:rotate-0 transition duration-500 w-72 md:w-80">
+                            <img src="images/portrait.jpg" alt="Me" loading="lazy" class="w-full h-auto rounded-lg grayscale hover:grayscale-0 transition duration-500 object-cover object-top" style="max-height: 400px" />
+                            <p class="sketch-font text-3xl text-[#66FCF1] mt-4 text-center">
                                 "The Mind Behind"
                             </p>
                         </div>
@@ -230,235 +204,211 @@
             </section>
 
             <section class="slide" id="slide-3">
-                <div class="flex flex-col md:flex-row w-full max-w-7xl gap-16 items-center">
-                    <div class="md:w-1/2 space-y-8">
-                        <div class="inline-block px-3 py-1 border border-[#66FCF1] rounded-full text-xs text-[#66FCF1] tracking-widest uppercase mb-4 reveal-text">
-                            Project 01
-                        </div>
-                        <h2 class="text-5xl md:text-7xl font-bold text-white reveal-text">
-                            Header Cleaner
+                <div class="bg-text">SYSTEMS</div>
+                <div class="max-w-7xl w-full z-10">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 reveal-text">
+                            Systems Engineered for Operational Efficiency
                         </h2>
-                        <p class="text-xl text-gray-400 reveal-text">
-                            35,000 messy records. A 2-hour deadline. <br />
-                            Manual processing took
-                            <span class="text-red-400">1 hour per batch</span>.
-                        </p>
-                        <div class="flex items-center gap-8 mt-8 reveal-text">
-                            <div>
-                                <span class="block text-4xl font-bold text-red-500 line-through opacity-50">1 Hour</span>
-                                <span class="text-xs text-gray-600 uppercase">Manual</span>
-                            </div>
-                            <div class="text-2xl text-gray-600">➔</div>
-                            <div>
-                                <span class="block text-6xl font-bold text-[#66FCF1]">2 Mins</span>
-                                <span class="text-xs text-gray-600 uppercase">Automated</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 mt-4 reveal-text">
-                            <span class="tech-badge">Chrome API</span>
-                            <span class="tech-badge">JS (ES6+)</span>
-                            <span class="tech-badge">Regex</span>
-                        </div>
+                        <p><span class="sketch-font text-[#66FCF1] text-3xl md:text-4xl">Engineered for speed</span></p>
                     </div>
-                    <div class="md:w-1/2 w-full reveal-img">
-                        <div class="glass-card p-6 border-l-4 border-[#66FCF1] relative overflow-hidden">
-                            <div class="absolute top-4 right-4 bg-[#66FCF1] text-black font-bold text-xs px-3 py-1 rounded-full animate-pulse shadow-[0_0_15px_rgba(102,252,241,0.5)]">
-                                35,000 RECORDS
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 mt-6 md:mt-0">
+                        
+                        <div class="glass-card p-8 reveal-img">
+                            <div class="pulse-bubble uppercase">35k+ / Month</div>
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="zap" class="w-8 h-8 text-[#66FCF1]"></i>
+                                <span class="text-white font-mono text-sm border-b border-[#66FCF1]/50">+1hr / Day</span>
                             </div>
-
-                            <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
-                                <span class="text-xs font-mono text-gray-400">extension_popup.html</span>
-                                <div class="flex space-x-2"></div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Header Pro</h3>
+                            <p class="text-sm text-gray-400 mb-6">
+                                Automated header mapping engine for retail datasets. Eliminates manual reformatting bottlenecks completely.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge">Chrome API</span>
+                                <span class="tech-badge">Vanilla JS</span>
                             </div>
-                            <div class="space-y-3 font-mono text-sm">
-                                <div class="flex justify-between text-gray-400">
-                                    <span>Status:</span><span class="text-green-400">Processing...</span>
-                                </div>
-                                <div class="h-2 w-full bg-gray-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-[#66FCF1] w-0 animate-[loadBar_2s_ease-in-out_infinite]">
-                                    </div>
-                                </div>
-                                <div class="text-xs text-gray-500">Cleaning headers...</div>
-                            </div>
-                            <style>
-                                @keyframes loadBar {
-                                    0% { width: 0%; }
-                                    50% { width: 70%; }
-                                    100% { width: 100%; }
-                                }
-                            </style>
                         </div>
+
+                        <div class="glass-card p-8 reveal-img">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="mouse-pointer-click" class="w-8 h-8 text-[#66FCF1]"></i>
+                                <span class="text-white font-mono text-sm border-b border-[#66FCF1]/50">+60m / Day</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Manuals Pro</h3>
+                            <p class="text-sm text-gray-400 mb-6">
+                                Custom workflow automation for the TDO team. Turns multi-step manual data entry into instant, 1-click execution.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge">JS Ext</span>
+                                <span class="tech-badge">DOM Manipulation</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 reveal-img">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="shield-check" class="w-8 h-8 text-[#66FCF1]"></i>
+                                <span class="text-white font-mono text-sm border-b border-[#66FCF1]/50">0 Errors</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">DI Validation Tool</h3>
+                            <p class="text-sm text-gray-400 mb-6">
+                                Intelligent QC validator. Cross-references detailed business research against on-premise databases for absolute data integrity.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge">Data Quality</span>
+                                <span class="tech-badge">Regex Engine</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 reveal-img">
+                            <div class="flex justify-between items-start mb-4">
+                                <i data-lucide="database" class="w-8 h-8 text-[#66FCF1]"></i>
+                                <span class="text-white font-mono text-sm border-b border-[#66FCF1]/50">+30m / Day</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Excel Automator</h3>
+                            <p class="text-sm text-gray-400 mb-6">
+                                Deep-level VBA scripting solutions that bypass legacy software limitations, streamlining trade data entry and daily syncing.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge">VBA Scripting</span>
+                                <span class="tech-badge">Macros</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            <section class="slide bg-[#0B0C10]" id="slide-4">
-                <div class="max-w-7xl w-full z-10">
-                    <div class="text-center mb-16">
-                        <h2 class="text-4xl font-bold text-white mb-4 reveal-text">
-                            The Automation Suite
-                        </h2>
-                        <p class="text-gray-400 reveal-text">A complete ecosystem.</p>
+            <section class="slide" id="slide-4">
+                <div class="bg-text">IMPACT</div>
+                <div class="text-center z-10 w-full max-w-6xl flex flex-col items-center">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-16 reveal-text">
+                        Daily Time <span class="sketch-font text-6xl md:text-8xl text-[#66FCF1] ml-2">Reclaimed.</span>
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full mb-12">
+                        <div class="reveal-img glass-card p-8 flex flex-col justify-center items-center">
+                            <div class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-target="3">0</span>+ Hrs</div>
+                            <div class="text-[10px] text-[#66FCF1] uppercase tracking-widest font-bold text-center">Saved Daily</div>
+                        </div>
+                        
+                        <div class="reveal-img glass-card p-8 flex flex-col justify-center items-center">
+                            <div class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-start="100" data-target="0">100</span>%</div>
+                            <div class="text-[10px] text-[#66FCF1] uppercase tracking-widest font-bold text-center">Errors</div>
+                        </div>
+                        
+                        <div class="reveal-img glass-card p-8 flex flex-col justify-center items-center">
+                            <div class="text-4xl md:text-5xl font-bold text-white mb-2"><span class="counter" data-target="35">0</span>k+</div>
+                            <div class="text-[10px] text-[#66FCF1] uppercase tracking-widest font-bold text-center">Records / Month</div>
+                        </div>
+                        <div class="reveal-img glass-card p-8 flex flex-col justify-center items-center">
+                            <div class="text-4xl md:text-5xl font-bold text-white mb-2">0<span class="counter" data-target="4">0</span></div>
+                            <div class="text-[10px] text-[#66FCF1] uppercase tracking-widest font-bold text-center">Custom Tools</div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="glass-card p-8 hover:bg-[#66FCF1]/10 transition duration-300 reveal-img">
-                            <i data-lucide="shield" class="w-10 h-10 mb-4 text-[#66FCF1]"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">DI Tool</h3>
-                            <p class="text-xs text-[#66FCF1] uppercase mb-4">QA Guardian</p>
-                            <p class="text-sm text-gray-400 mb-4">
-                                28 automated checkpoints. 0% Error Rate.
-                            </p>
-                            <span class="tech-badge">DOM Automation</span>
-                        </div>
-                        <div class="glass-card p-8 hover:bg-[#66FCF1]/10 transition duration-300 reveal-img">
-                            <i data-lucide="eye" class="w-10 h-10 mb-4 text-[#66FCF1]"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">QC Split</h3>
-                            <p class="text-xs text-[#66FCF1] uppercase mb-4">UI Solution</p>
-                            <p class="text-sm text-gray-400 mb-4">
-                                Side-by-side comparison UI. Doubled speed.
-                            </p>
-                            <span class="tech-badge">CSS Grid</span>
-                        </div>
-                        <div class="glass-card p-8 hover:bg-[#66FCF1]/10 transition duration-300 reveal-img">
-                            <i data-lucide="rocket" class="w-10 h-10 mb-4 text-[#66FCF1]"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">XL Advance</h3>
-                            <p class="text-xs text-[#66FCF1] uppercase mb-4">Performance</p>
-                            <p class="text-sm text-gray-400 mb-4">
-                                Browser-based VLOOKUP. Prevents Excel crashes.
-                            </p>
-                            <span class="tech-badge">Async JS</span>
+
+                    <div class="reveal-text w-full max-w-4xl border-t border-gray-800 pt-10 text-left">
+                        <h3 class="text-sm text-white font-bold uppercase tracking-widest mb-4 border-l-2 border-[#66FCF1] pl-3">Automation Stack</h3>
+                        <p class="text-gray-400 text-sm mb-6 max-w-2xl leading-relaxed">
+                            Experience working with high-volume retail trade datasets (30k+ records/month) under time-sensitive operational constraints.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-gray-400 font-mono text-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[#66FCF1]">></span> JavaScript (DOM, Chrome APIs)
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[#66FCF1]">></span> Advanced VBA & Excel Object Model
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[#66FCF1]">></span> Regex-based Validation Engines
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[#66FCF1]">></span> Workflow Design & Process Optimization
+                            </div>
+                            <div class="flex items-center gap-3 md:col-span-2">
+                                <span class="text-[#66FCF1]">></span> Data Quality Rule Systems
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="slide" id="slide-5">
-                <div class="text-center z-10 w-full max-w-6xl">
-                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-16 reveal-text">
-                        Real Business <span class="sketch-font text-6xl text-[#66FCF1] ml-2">Impact.</span>
-                    </h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div class="reveal-img">
-                            <div class="text-5xl md:text-7xl font-bold text-white mb-2">₹1.5L+</div>
-                            <div class="text-xs text-[#66FCF1] uppercase tracking-widest font-bold">Annual Savings</div>
-                        </div>
-                        <div class="reveal-img">
-                            <div class="text-5xl md:text-7xl font-bold text-white mb-2">500+</div>
-                            <div class="text-xs text-[#66FCF1] uppercase tracking-widest font-bold">Hours Saved</div>
-                        </div>
-                        <div class="reveal-img">
-                            <div class="text-5xl md:text-7xl font-bold text-white mb-2">40%</div>
-                            <div class="text-xs text-[#66FCF1] uppercase tracking-widest font-bold">SQL Time Reduced</div>
-                        </div>
-                        <div class="reveal-img">
-                            <div class="text-5xl md:text-7xl font-bold text-white mb-2">35k+</div>
-                            <div class="text-xs text-[#66FCF1] uppercase tracking-widest font-bold">Records Automated</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="slide bg-[#0d0e12]" id="slide-6">
-                <div class="flex flex-col items-center justify-center text-center w-full h-full p-4">
-                    <div class="mb-4 reveal-text z-10">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white">
-                            Logic needs
-                            <span class="sketch-font text-[#66FCF1]">Soul.</span>
-                        </h2>
-                    </div>
-
-                    <div class="art-grid z-10">
-                        <div class="art-item area-portrait group relative reveal-img">
-                            <img src="images/portrait2.jpg" alt="Portrait" class="img-top" loading="lazy" />
-                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-white font-bold text-sm">The Mind Behind</span>
-                            </div>
-                        </div>
-
-                        <div class="art-item area-ui group relative reveal-img">
-                            <img src="images/ui-design.jpg" alt="UI" class="img-top" loading="lazy" />
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-white font-bold text-xl border-b-2 border-[#66FCF1] pb-1">Corporate UI/UX</span>
-                            </div>
-                        </div>
-
-                        <div class="art-item area-logo1 bg-white flex items-center justify-center group relative reveal-img">
-                            <img src="images/spike.jpeg" alt="Logo" class="img-contain" loading="lazy" />
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-white font-bold text-xl border-b-2 border-[#66FCF1] pb-1">Commercial Logo</span>
-                            </div>
-                        </div>
-                        
-                        <div class="art-item area-logo2 bg-black group relative reveal-img">
-                            <img src="images/Logo1.jpeg" loading="lazy" />
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-white font-bold text-xl border-b-2 border-[#66FCF1] pb-1">Commercial Logo</span>
-                            </div>
-                        </div>
-
-                        <div class="art-item area-anime bg-gray-800 group relative reveal-img">
-                            <img src="images/anime.jpeg" alt="Anime" loading="lazy" />
-                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-white font-bold text-sm">Storytelling</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="slide" id="slide-7">
+                <div class="bg-text">BUILD</div>
                 <div class="text-center max-w-4xl z-10">
                     <div class="mb-8 reveal-img">
-                        <img src="images/portrait.jpg" alt="Me" loading="lazy"
-                            class="w-24 h-24 rounded-full border-2 border-[#66FCF1] mx-auto object-cover filter grayscale hover:grayscale-0 transition duration-500 img-top" />
+                        <img src="images/portrait.jpg" alt="Me" loading="lazy" class="w-32 h-32 rounded-full border-2 border-[#66FCF1] mx-auto object-cover filter grayscale hover:grayscale-0 transition duration-500 object-top" />
                     </div>
-                    <h2 class="text-6xl md:text-8xl font-bold text-white mb-8 tracking-tighter reveal-text">
-                        Let's Build.
+                    <h2 class="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter reveal-text">
+                        Let's Engineer Better Systems.
                     </h2>
-                    <div class="flex flex-col md:flex-row justify-center gap-6 reveal-img">
-                        <a href="resume.html" target="_blank" class="btn-primary">View Resume</a>
-                        <a href="https://www.linkedin.com/in/k-maharaja-bca/" target="_blank"
-                            class="px-8 py-4 border border-white text-white font-bold rounded-full hover:bg-white hover:text-black transition-colors">LinkedIn Profile</a>
+                    <p class="text-gray-400 mb-10 reveal-text max-w-lg mx-auto">
+                        Ready to automate your workflow and reclaim your team's time? Let's connect and build something efficient.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-6 reveal-img">
+                        <a href="resume.html" class="btn-primary">
+                            <i data-lucide="file-text" class="w-5 h-5"></i> View Resume
+                        </a>
+                        <a href="www.linkedin.com/in/k-maharaja-bca" target="_blank" class="px-8 py-3 border border-white/20 text-white font-bold rounded-full hover:bg-white hover:text-black hover:border-white transition-all flex items-center gap-2">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn Profile
+                        </a>
+                        <a href="k.maharaja.bca@gmail.com" class="p-3 border border-white/20 text-white rounded-full hover:text-[#66FCF1] hover:border-[#66FCF1] transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
                     </div>
                 </div>
             </section>
         </div>
     </div>
 
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 mac-dock px-6 py-4 rounded-full flex items-center gap-8 z-50">
+        <button onclick="scrollToSlide(0)" class="group relative flex flex-col items-center">
+            <i data-lucide="home" class="w-6 h-6 text-gray-400 group-hover:text-[#66FCF1] group-hover:-translate-y-1 transition-all"></i>
+            <span class="absolute -top-10 bg-[#0b0c10] border border-[#66FCF1]/30 text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Identity</span>
+        </button>
+        <button onclick="scrollToSlide(1)" class="group relative flex flex-col items-center">
+            <i data-lucide="user" class="w-6 h-6 text-gray-400 group-hover:text-[#66FCF1] group-hover:-translate-y-1 transition-all"></i>
+            <span class="absolute -top-10 bg-[#0b0c10] border border-[#66FCF1]/30 text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Origin</span>
+        </button>
+        <button onclick="scrollToSlide(2)" class="group relative flex flex-col items-center">
+            <i data-lucide="layers" class="w-6 h-6 text-gray-400 group-hover:text-[#66FCF1] group-hover:-translate-y-1 transition-all"></i>
+            <span class="absolute -top-10 bg-[#0b0c10] border border-[#66FCF1]/30 text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Systems</span>
+        </button>
+        <button onclick="scrollToSlide(3)" class="group relative flex flex-col items-center">
+            <i data-lucide="bar-chart" class="w-6 h-6 text-gray-400 group-hover:text-[#66FCF1] group-hover:-translate-y-1 transition-all"></i>
+            <span class="absolute -top-10 bg-[#0b0c10] border border-[#66FCF1]/30 text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Impact</span>
+        </button>
+        <button onclick="scrollToSlide(4)" class="group relative flex flex-col items-center">
+            <i data-lucide="send" class="w-6 h-6 text-gray-400 group-hover:text-[#66FCF1] group-hover:-translate-y-1 transition-all"></i>
+            <span class="absolute -top-10 bg-[#0b0c10] border border-[#66FCF1]/30 text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Contact</span>
+        </button>
+    </nav>
+
     <script>
-        // Initialize Lucide Icons globally
         lucide.createIcons();
 
-        // 1. Preloader
         window.addEventListener("load", () => {
             document.getElementById("progress").style.width = "100%";
             setTimeout(() => {
                 document.getElementById("preloader").style.opacity = "0";
                 document.getElementById("preloader").style.pointerEvents = "none";
-                document.getElementById("navbar").style.opacity = "1";
-                document.getElementById("navbar").style.transition =
-                    "opacity 1s ease";
             }, 800);
         });
 
-        // 2. GSAP Logic
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
         const container = document.querySelector(".horizontal-container");
 
-        function getScrollTotal() {
-            return container.scrollWidth - window.innerWidth;
-        }
+        function getScrollTotal() { return container.scrollWidth - window.innerWidth; }
 
-        // ROBUST DOM-BASED NAVIGATION
         window.scrollToSlide = (index) => {
             const slides = document.querySelectorAll(".slide");
             const targetScroll = slides[index].offsetLeft;
-
-            gsap.to(window, {
-                scrollTo: targetScroll,
-                duration: 1.5,
-                ease: "power2.inOut",
-            });
+            
+            if (window.innerWidth >= 768) {
+                gsap.to(window, { scrollTo: targetScroll, duration: 1.5, ease: "power2.inOut" });
+            } else {
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
         };
 
         let mm = gsap.matchMedia();
@@ -476,38 +426,12 @@
                 },
             });
 
-            gsap.to(".mandala-1", {
-                x: -200,
-                scrollTrigger: {
-                    trigger: ".horizontal-container",
-                    start: "left left",
-                    end: () => "+=" + getScrollTotal(),
-                    scrub: 1,
-                    containerAnimation: horizontalTween,
-                },
-            });
-
-            gsap.to("#theLine", {
-                strokeDashoffset: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".horizontal-container",
-                    start: "left left",
-                    end: () => "+=" + getScrollTotal(),
-                    scrub: 1,
-                    containerAnimation: horizontalTween,
-                },
-            });
-
             document.querySelectorAll(".slide").forEach((slide) => {
+                // Reveal regular elements
                 let els = slide.querySelectorAll(".reveal-text, .reveal-img");
                 if (els.length > 0) {
                     gsap.to(els, {
-                        y: 0,
-                        scale: 1,
-                        opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.1,
+                        y: 0, scale: 1, opacity: 1, duration: 0.8, stagger: 0.1,
                         scrollTrigger: {
                             trigger: slide,
                             containerAnimation: horizontalTween,
@@ -516,18 +440,55 @@
                         },
                     });
                 }
+                
+                // Animate Counters with Support for data-start
+                let counters = slide.querySelectorAll(".counter");
+                if (counters.length > 0) {
+                    counters.forEach(counter => {
+                        let target = parseInt(counter.getAttribute('data-target'));
+                        let startVal = counter.hasAttribute('data-start') ? parseInt(counter.getAttribute('data-start')) : 0;
+                        
+                        gsap.fromTo(counter, 
+                            { textContent: startVal },
+                            {
+                                textContent: target,
+                                duration: 2,
+                                snap: { textContent: 1 },
+                                scrollTrigger: {
+                                    trigger: slide,
+                                    containerAnimation: horizontalTween,
+                                    start: "left center",
+                                    toggleActions: "play none none reverse"
+                                }
+                            }
+                        );
+                    });
+                }
             });
         });
 
         mm.add("(max-width: 767px)", () => {
             gsap.utils.toArray(".reveal-text, .reveal-img").forEach((el) => {
                 gsap.to(el, {
-                    y: 0,
-                    scale: 1,
-                    opacity: 1,
-                    duration: 1,
-                    scrollTrigger: { trigger: el, start: "top 80%" },
+                    y: 0, scale: 1, opacity: 1, duration: 1,
+                    scrollTrigger: { trigger: el, start: "top 85%" },
                 });
+            });
+
+            // Mobile counter animations
+            gsap.utils.toArray(".counter").forEach((counter) => {
+                let target = parseInt(counter.getAttribute('data-target'));
+                let startVal = counter.hasAttribute('data-start') ? parseInt(counter.getAttribute('data-start')) : 0;
+                
+                gsap.fromTo(counter, 
+                    { textContent: startVal },
+                    {
+                        textContent: target,
+                        duration: 2,
+                        snap: { textContent: 1 },
+                        scrollTrigger: { trigger: counter, start: "top 90%" }
+                    }
+                );
             });
         });
     </script>
